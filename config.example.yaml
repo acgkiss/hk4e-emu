@@ -1,0 +1,36 @@
+defaultFilter: &defaultFilter
+  enable: true
+  rules:
+    # all packets are allowed by default
+    - allow:*
+    # except for the following rules
+    - block:WindSeedClientNotify
+    - block:PlayerLuaShellNotify
+
+loggingDir: log
+baseDomain: example.com
+autoSignUp: true
+passSignIn: false
+httpServer:
+  enable: true
+  addr: 0.0.0.0:8080
+  tls:
+    enable: false
+    addr: 0.0.0.0:8443
+gateServer:
+  - name: http
+    title: http
+    dispatchUrl: http://127.0.0.1:8080/query_cur_region
+  - name: https
+    title: https
+    dispatchUrl: https://127.0.0.1:8443/query_cur_region
+  - name: os_beta01
+    title: 127.0.0.1:22102
+    addr: 127.0.0.1:22102
+gameServer:
+  enable: true
+  addr: 0.0.0.0:22102
+  filter: *defaultFilter
+database:
+  driver: sqlite
+  dsn: file:data/hk4e-emu.db?cache=shared&mode=rwc

@@ -14,6 +14,23 @@ func (s *Server) handleSDKGetAgreementInfos(c *gin.Context) {
 	}))
 }
 
+// 安卓客户端请求处理
+func (s *Server) handleSDKGetAlertAnnfos(c *gin.Context) {
+	response := gin.H{
+		"retcode": 0,
+		"message": "OK",
+		"data": gin.H{
+			"alert":    false,
+			"alert_id": 0,
+			"remind":   true,
+		},
+	}
+
+	c.JSON(http.StatusOK, response)
+}
+
+//结束
+
 func (s *Server) handleSDKGetShopPriceTier(c *gin.Context) {
 	c.JSON(http.StatusOK, sdk.NewResponse(0, gin.H{
 		"suggest_currency":   "USD",

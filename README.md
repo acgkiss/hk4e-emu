@@ -36,7 +36,7 @@ $ go build -trimpath -ldflags "-s -w" -o bin/server cmd/server/main.go
 > Note: The `go work` command is only available in Go 1.17 or later.
 
 ## Warning
-This project has only been successful on PC, where it received valid JSON data responses. However, on Android, it did not receive valid data and caused crashes. It has not been tested on PS4, PS5, or iOS, so it is unknown whether it can successfully implement login functionality on those platforms.
+This project has successfully implemented login functionality on PC, where it receives valid JSON data responses. After initial adaptation, it has also passed login testing on the Android platform without encountering any login-related bugs so far. However, it has not been tested on PS4, PS5, or iOS, so it is unknown whether it can successfully implement login functionality on those platforms.
 
 ### Action artifacts（Please note that these ready-made binary files have returned a 404 error.）
 

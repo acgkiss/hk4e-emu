@@ -64,30 +64,64 @@ func (s *Server) handleSDKGetConfig(c *gin.Context) {
 	}))
 }
 
+// 增加安卓json格式处理
 func (s *Server) handleSDKLoadConfig(c *gin.Context) {
-	c.JSON(http.StatusOK, sdk.NewResponse(0, gin.H{
-		"id":                     6,
-		"game_key":               "hk4e_global",
-		"client":                 []string{"PC", "android", "IOS", "PS4", "PS5"},
-		"identity":               "I_IDENTITY",
-		"guest":                  false,
-		"ignore_versions":        "",
-		"scene":                  "S_NORMAL",
-		"name":                   "HK4E Global",
-		"disable_regist":         false,
-		"enable_email_captcha":   false,
-		"thirdparty":             []string{"fb", "tw"},
-		"disable_mmt":            false,
-		"server_guest":           false,
-		"thirdparty_ignore":      gin.H{},
-		"enable_ps_bind_account": false,
-		"thirdparty_login_configs": gin.H{
-			"fb": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
-			"tw": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
-		},
-	}))
-}
+	clientType := c.Query("client_type")
+	var config gin.H
+	switch clientType {
+	case "PC":
+		config = gin.H{
+			"id":                     6,
+			"game_key":               "hk4e_global",
+			"client":                 "PC",
+			"identity":               "I_IDENTITY",
+			"guest":                  false,
+			"ignore_versions":        "",
+			"scene":                  "S_NORMAL",
+			"name":                   "HK4E Global",
+			"disable_regist":         false,
+			"enable_email_captcha":   false,
+			"thirdparty":             []string{"fb", "tw"},
+			"disable_mmt":            false,
+			"server_guest":           false,
+			"thirdparty_ignore":      gin.H{},
+			"enable_ps_bind_account": false,
+			"thirdparty_login_configs": gin.H{
+				"fb": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
+				"tw": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
+			},
+		}
+	case "Android":
+		config = gin.H{
+			"id":                     7,
+			"game_key":               "hk4e_global",
+			"client":                 "Android",
+			"identity":               "I_IDENTITY",
+			"guest":                  false,
+			"ignore_versions":        "",
+			"scene":                  "S_NORMAL",
+			"name":                   "HK4E Global",
+			"disable_regist":         false,
+			"enable_email_captcha":   false,
+			"thirdparty":             []string{"fb", "tw"}, // 添加安卓客户端支持的第三方登录
+			"disable_mmt":            false,
+			"server_guest":           false,
+			"thirdparty_ignore":      gin.H{},
+			"enable_ps_bind_account": false,
+			"thirdparty_login_configs": gin.H{
+				"fb": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
+				"tw": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
+				//"google": gin.H{"token_type": "TK_GAME_TOKEN", "game_token_expires_in": 2592000},
+			},
+		}
+	default:
+		config = gin.H{
+			// 默认配置...
+		}
+	}
 
+	c.JSON(http.StatusOK, sdk.NewResponse(0, config))
+}
 func (s *Server) handleSDKConfigCombo(c *gin.Context) {
 	c.JSON(http.StatusOK, sdk.NewResponse(0, gin.H{
 		"vals": gin.H{

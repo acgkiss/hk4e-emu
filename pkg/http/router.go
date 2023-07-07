@@ -71,8 +71,8 @@ func (s *Server) initRouter() {
 
 	// Mainland: hk4e-sdk.*
 	// Overseas: hk4e-sdk-os.*
-	s.router.GET("/common/hk4e_global/announcement/api/getAlertPic")
-	s.router.GET("/common/hk4e_global/announcement/api/getAlertAnn")
+	s.router.GET("/common/hk4e_global/announcement/api/getAlertPic", s.handleSDKGetAgreementInfos) //安卓请求处理
+	s.router.GET("/common/hk4e_global/announcement/api/getAlertAnn", s.handleSDKGetAlertAnnfos)    //安卓请求处理
 	s.router.GET("/common/hk4e_global/announcement/api/getAnnList")
 	s.router.GET("/hk4e_cn/mdk/agreement/api/getAgreementInfos", s.handleSDKGetAgreementInfos)
 	s.router.GET("/hk4e_global/mdk/agreement/api/getAgreementInfos", s.handleSDKGetAgreementInfos)
